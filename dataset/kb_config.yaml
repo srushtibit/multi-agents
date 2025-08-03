@@ -1,0 +1,111 @@
+# Enhanced Knowledge Base Configuration
+
+# Processing Configuration
+processing:
+  # Chunking settings
+  chunk_size: 512
+  chunk_overlap: 50
+  min_chunk_size: 50
+  max_chunk_size: 1000
+  
+  # Quality settings
+  min_text_length: 10
+  max_text_length: 10000
+  duplicate_threshold: 0.95
+  min_quality_score: 0.3
+  
+  # File processing
+  max_file_size_mb: 100
+  supported_encodings:
+    - utf-8
+    - latin1
+    - cp1252
+    - iso-8859-1
+
+# Embedding Configuration
+embedding:
+  model: "all-MiniLM-L6-v2"
+  batch_size: 32
+  normalize_embeddings: true
+  
+# FAISS Index Configuration
+index:
+  type: "IndexFlatL2"  # or "IndexIVFFlat" for larger datasets
+  use_id_map: true
+  
+# Content Type Specific Settings
+content_types:
+  manual:
+    chunk_strategy: "paragraph_aware"
+    preserve_structure: true
+    min_chunk_size: 100
+    
+  ticket:
+    chunk_strategy: "sentence_aware"
+    preserve_context: true
+    min_chunk_size: 50
+    
+  structured:
+    chunk_strategy: "row_based"
+    combine_columns: true
+    min_chunk_size: 30
+
+# Domain Classification
+domains:
+  hr_keywords:
+    - leave
+    - salary
+    - payroll
+    - employee
+    - hr
+    - human resources
+    - vacation
+    - benefits
+    - policy
+    
+  it_keywords:
+    - vpn
+    - network
+    - computer
+    - software
+    - hardware
+    - it
+    - technical
+    - system
+    - server
+    - connectivity
+    
+  payroll_keywords:
+    - payroll
+    - salary
+    - payment
+    - wage
+    - compensation
+    - tax
+    - deduction
+    - benefits
+
+# Language Detection
+language:
+  enabled: true
+  min_text_length: 10
+  supported_languages:
+    - en
+    - de
+    - fr
+    - es
+    - it
+
+# Output Configuration
+output:
+  index_filename: "nexa_corp_enhanced.index"
+  mapping_filename: "nexa_corp_enhanced_mapping.json"
+  backup_enabled: true
+  compression_enabled: false
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+  file_enabled: true
+  log_filename: "kb_processing.log"
